@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ./partials/meta_tags.ejs %>
+    <% include ./partials/favicon.ejs %>
+    <title><%= title %></title>
+    <% include ./partials/require_css.ejs %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css">
+    <link rel="stylesheet" href="/css/partials/template_builder.css" />
+    <link rel="stylesheet" href="/css/table.css" />
+    <link rel="stylesheet" href="/css/template.css" />
+</head>
+
+<body>
+    <% include ./partials/loading.ejs %>
+    <div class="root d-flex w-100 h-100">
+        <% include ./partials/control_panel.ejs %>
+        <div class="ml-auto w-100 page-wrapper">
+            <% include ./partials/toolbar.ejs %>
+
+            <div class="container my-5">
+                <div class="chsr card">
+                    <div class="title">
+                        <h3 class="pt-3 pb-0 px-5">範本訊息</h3>
+                        <p class="pt-0 pb-4 px-5">首頁 / 圖文影音內容 / 範本訊息</p>
+                    </div>
+                    <div class="px-5 my-3" id="appsDropdown">
+                        <div class="dropdown app-dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span class="dropdown-text">請選擇聊天機器人</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="appsDropdown"></div>
+                        </div>
+                        <div class="search-add mb-2">
+                            <button type="button" class="btn btn-light btn-border insert-btn" data-toggle="modal" data-backdrop="static" data-target="#templateModal" aria-hidden="true">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="py-0 px-5 chsr table">
+                        <table class="chsr table" id="templateTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">範本名稱</th>
+                                    <th scope="col" id="colOfAltText">訊息標題文字</th>
+                                    <th scope="col">版型</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                </duv>
+            </div>
+        </div>
+    </div>
+
+    <!-- new modal -->
+    <div class="chsr modal fade" id="templateModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form class="template-form" id="templateForm">
+                        <input type="hidden" id="templateId" name="templateId" />
+
+                        <div class="form-group app-select-bar">
+                            <label class="col-form-label font-weight-bold">目標機器人:</label>
+                            <select class="form-control" id="appSelector"></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label font-weight-bold">範本名稱:</label>
+                            <input class="form-control" type="text" name="templateName" placeholder="輸入範本名稱" maxlength="50" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label font-weight-bold">訊息標題文字:</label>
+                            <input class="form-control" type="text" name="templateAltText" placeholder="輸入範本訊息標題文字" maxlength="400" />
+                        </div>
+
+                        <div class="template-wrapper" id="templateWrapper"></div>
+
+                        <div class="modal-footer px-0">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="insertTemplateBtn">新增</button>
+                            <button type="button" class="btn btn-primary" id="updateTemplateBtn">修改</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end new modal -->
+
+    <div id="dialog_modal" class="chsr modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 id="textContent"></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">確定</button>
+                    <button type="button" class="btn btn-secondary">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <% include ./partials/require_js.ejs %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
+    <script src="/js/partials/template_builder.js"></script>
+    <script src="/js/template.js"></script>
+</body>
+
+</html>

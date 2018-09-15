@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "target": "es6",
+        "lib": [
+            "dom",
+            "es6",
+            "es2017"
+        ],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "strict": true,
+        "allowJs": true,
+        "checkJs": true,
+        "noEmit": true,
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "allowSyntheticDefaultImports": true
+    },
+    "exclude": [
+        "node_modules",
+        "**/node_modules"
+    ],
+    "include": [
+        "typings/server/**/*.d.ts",
+        "controllers/**/*",
+        "cores/**/*",
+        "helpers/**/*",
+        "models/**/*",
+        "patch/**/*",
+        "routes/**/*",
+        "schedules/**/*",
+        "services/**/*",
+        "sockets/**/*", "config/chatshier.js"
+    ]
+}

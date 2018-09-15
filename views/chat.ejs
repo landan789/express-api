@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ./partials/meta_tags.ejs %>
+    <% include ./partials/favicon.ejs %>
+    <title><%= title %></title>
+    
+    <% include ./partials/require_css.ejs %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/lib/css/bootstrap-datetimepicker-fixbs4.css">
+    <link rel="stylesheet" href="/lib/css/emojionearea.min.css" />
+    <link rel="stylesheet" href="/css/chat.css" />
+</head>
+
+<body>
+    <% include ./partials/loading.ejs %>
+
+    <div class="root d-flex w-100 h-100">
+        <% include ./partials/control_panel.ejs %>
+
+        <div class="ml-auto w-100 page-wrapper chat-wrapper" id="chatWrapper">
+            <% include ./partials/toolbar.ejs %>
+
+            <div class="position-relative d-flex chatroom-container">
+                <span class="watermark-text">歡迎使用 錢掌櫃 整合平台</span>
+                <div class="chat-content-panel d-none col px-0 animated slideInLeft" id="chatContentPanel">
+                    <div class="chatroom-body"></div>
+                    <div class="position-relative message-input-container">
+                        <div class="message-input form-upper">
+                            <div class="media-container">
+                                <button data-id="fileImage" data-type="image" class="p-0 media-btn">
+                                    <i class="fas fa-image" aria-hidden="true"></i>
+                                </button>
+                                <button data-id="fileVideo" data-type="video" class="p-0 media-btn">
+                                    <i class="fas fa-video" aria-hidden="true"></i>
+                                </button>
+                                <button data-id="fileAudio" data-type="audio" class="p-0 media-btn">
+                                    <i class="fas fa-volume-up" aria-hidden="true"></i>
+                                </button>
+                                <button data-id="anyFile" data-type="file" class="p-0 media-btn">
+                                    <i class="fas fa-file" aria-hidden="true"></i>
+                                </button>
+                                <input class="ghost-file d-none" type="file" id="fileImage" data-type="image" accept="image/*" />
+                                <input class="ghost-file d-none" type="file" id="fileVideo" data-type="video" accept="video/mp4,video/mpeg4" />
+                                <input class="ghost-file d-none" type="file" id="fileAudio" data-type="audio" accept="audio/mp3,video/mpeg3" />
+                                <input class="ghost-file d-none" type="file" id="anyFile" data-type="file" accept="*/*" />
+                            </div>
+                            <div class="imagemap-container">
+                                <button id="imagemap" class="p-0 media-btn">
+                                    <i class="fas fa-map" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="message-input form-lower">
+                            <textarea class="submit-message-input px-2" placeholder="輸入訊息..." id="submitMessageInput" maxlength="2000"></textarea>
+                            <button class="p-0 ml-2 submit-message-btn" type="button" id="submitMessageBtn"></button>
+                        </div>
+                        <div class="position-absolute w-100 h-100 imagemap-area animated ScaleYGrowUp d-none"></div>
+                    </div>
+                </div>
+
+                <div class="profile-panel d-none col px-0 animated slideInRight" id="profilePanel">
+                    <div class="profile-wrapper p-2"></div>
+                </div>
+
+                <div class="ticket-panel d-none col px-0 animated slideInRight" id="ticketPanel">
+                    <div class="ticket-wrapper p-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <% include ./partials/modals/ticket_add_modal.ejs %>
+    <% include ./partials/modals/ticket_edit_modal.ejs %>
+    <% include ./partials/modals/error_modal.ejs %>
+
+    <% include ./partials/require_js.ejs %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/lib/js/emojionearea.min.js"></script>
+    <script src="/js/chat.js"></script>
+</body>
+
+</html>

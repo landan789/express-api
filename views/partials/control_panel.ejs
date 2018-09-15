@@ -1,0 +1,159 @@
+<div class="chsr ctrl-panel swiper-container h-100 d-none d-md-block" id="ctrlPanel">
+    <div class="swiper-wrapper">
+        <ul class="list-group detail-list">
+            <li class="text-light py-0 pl-2 list-group-item logo-item">
+                <div class="p-1 ctrl-panel-logo" onclick="window.location.assign(window.CHATSHIER.URL.WWW)">
+                    <img class="w-100 h-100" src="image/logo-small.png" alt="" />
+                </div>
+                <span class="ctrl-panel-title" onclick="window.location.assign(window.CHATSHIER.URL.WWW)">Chatshier</span>
+                <i class="ml-auto p-2 fas fa-times d-sm-none menu-toggle"></i>
+            </li>
+        </ul>
+
+        <div class="swiper-slide">
+            <ul class="list-group detail-list">
+                <li class="search message-search text-light list-group-item" id="messageSearch">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="mx-0 search-box swiper-no-swiping" placeholder="搜尋">
+                    <div class="search-results d-none">
+                        <div class="number">
+                            <span class="current-number" id="currentNumber">0</span>
+                            <span class="slash-number">/</span>
+                            <span class="total-number" id="totalNumber">0</span>
+                        </div>
+                        <i class="fas fa-chevron-up grey" aria-hidden="true"></i>
+                        <i class="fas fa-chevron-down grey" aria-hidden="true"></i>
+                    </div>
+                </li>
+                <li class="text-light list-group-item has-collapse" id="ctrlPanelChatroomItem">
+                    <i class="fas fa-comment-dots fa-fw"></i>
+                    <span>聊天室</span>
+                    <i class="ml-auto py-1 fas fa-chevron-up collapse-icon"></i>
+                </li>
+                <div class="collapse show" id="ctrlPanelChatroomCollapse">
+                    <li class="text-light list-group-item justify-content-center">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                    </li>
+                </div>
+                <li class="text-light list-group-item" onclick="window.location.assign('/calendar')">
+                    <i class="far fa-calendar-alt fa-fw"></i>
+                    <span>行事曆</span>
+                </li>
+                <li class="text-light list-group-item" onclick="window.location.assign('/ticket')">
+                    <i class="fas fa-list-ul fa-fw"></i>
+                    <span>待辦事項</span>
+                </li>
+                <li class="text-light list-group-item" onclick="window.location.assign('/analyze')">
+                    <i class="fas fa-chart-bar fa-fw"></i>
+                    <span>訊息分析</span>
+                </li>
+                <li class="text-light list-group-item has-collapse">
+                    <i class="fas fa-calendar fa-fw"></i>
+                    <span>預約系統</span>
+                    <i class="ml-auto py-1 fas fa-chevron-up collapse-icon"></i>
+                </li>
+                <div class="collapse show" id="ctrlPanelProductsCollapse">
+                    <li class="text-light nested list-group-item" onclick="window.location.assign('/appointment')">
+                        <i class="fas fa-calendar-check fa-fw"></i>
+                        <span>檢視預約項目</span>
+                    </li>
+                    <li class="text-light nested list-group-item" onclick="window.location.assign('/receptionist')">
+                        <i class="fas fa-user-clock fa-fw"></i>
+                        <span>服務人員管理</span>
+                    </li>
+                    <li class="text-light nested list-group-item" onclick="window.location.assign('/product')">
+                        <i class="fas fa-cart-plus fa-fw"></i>
+                        <span>產品管理</span>
+                    </li>
+                    <li class="text-light nested list-group-item" onclick="window.location.assign('/category')">
+                        <i class="fas fa-list-alt fa-fw"></i>
+                        <span>預約目錄</span>
+                    </li>
+                </div>
+                <li class="text-light list-group-item has-collapse" id="ctrlPanelMessages">
+                    <i class="fas fa-envelope fa-fw"></i>
+                    <span>訊息</span>
+                    <i class="ml-auto py-1 fas fa-chevron-up collapse-icon"></i>
+                </li>
+                <div class="collapse show" id="ctrlPanelMessagesCollapse">
+                    <li class="text-light nested list-group-item" onclick="window.location.assign('/compose')">
+                        <i class="fas fa-comments"></i>
+                        <span>群發</span>
+                    </li>
+                    <li class="text-light nested list-group-item" onclick="window.location.assign('/autoreply')">
+                        <i class="fas fa-comments"></i>
+                        <span>自動回覆</span>
+                    </li>
+                    <li class="text-light nested list-group-item" onclick="window.location.assign('/keywordsreply')">
+                        <i class="fas fa-comments"></i>
+                        <span>關鍵字回覆</span>
+                    </li>
+                    <li class="text-light nested list-group-item" onclick="window.location.assign('/greeting')">
+                        <i class="fas fa-comments"></i>
+                        <span>加好友回覆</span>
+                    </li>
+                </div>
+
+                <li class="text-light list-group-item has-collapse" id="ctrlPanelMenu">
+                    <i class="far fa-images fa-fw"></i>
+                    <span>圖文影音內容</span>
+                    <i class="ml-auto py-1 fas fa-chevron-up collapse-icon"></i>
+                </li>
+                <div class="collapse show" id="ctrlPanelMenuCollapse">
+                    <li class="text-light nested list-group-item" onclick="window.location.assign('/richmenu')">
+                        <i class="fas fa-image"></i>
+                        <span>圖文選單</span>
+                    </li>
+                    <li class="text-light nested list-group-item" onclick="window.location.assign('/imagemap')">
+                        <i class="fas fa-comment"></i>
+                        <span>圖文訊息</span>
+                    </li>
+                    <li class="text-light nested list-group-item" onclick="window.location.assign('/template')">
+                        <i class="fas fa-clone"></i>
+                        <span>範本訊息</span>
+                    </li>
+                </div>
+            </ul>
+
+            <ul class="list-group simple-list animated slideInRight">
+                <li class="mb-5 p-0 text-light list-group-item logo-item" onclick="window.location.assign(window.CHATSHIER.URL.WWW)">
+                    <div class="p-1 mx-auto ctrl-panel-logo">
+                        <img class="w-100 h-100" src="image/logo-small.png" alt="" />
+                    </div>
+                </li>
+                <li class="mb-3 px-0 text-light text-center list-group-item chatroom-item">
+                    <i class="fas fa-comment-dots fa-2x"></i>
+                </li>
+                <li class="mb-3 px-0 text-light text-center list-group-item" onclick="window.location.assign('/calendar')">
+                    <i class="far fa-calendar-alt fa-2x"></i>
+                </li>
+                <li class="mb-3 px-0 text-light text-center list-group-item" onclick="window.location.assign('/ticket')">
+                    <i class="fa fa-list-ul fa-2x"></i>
+                </li>
+                <li class="mb-3 px-0 text-light text-center list-group-item" onclick="window.location.assign('/analyze')">
+                    <i class="fa fa-chart-bar fa-2x"></i>
+                </li>
+                <li class="mb-3 px-0 text-light text-center list-group-item messages-item">
+                    <i class="fa fa-envelope fa-2x"></i>
+                </li>
+                <li class="mb-3 px-0 text-light text-center list-group-item messages-item">
+                    <i class="far fa-images fa-2x"></i>
+                </li>
+            </ul>
+        </div>
+
+        <div class="scroll-arrow scroll-bottom">
+            <i class="fas fa-chevron-circle-down fa-2x animated zoomInDown"></i>
+        </div>
+    </div>
+</div>
+
+<div class="d-none d-sm-flex edge-toggle-container" id="edgeToggleContainer">
+    <button class="edge-toggle-btn">
+        <i class="fas fa-minus"></i>
+    </button>
+</div>
+
+<div class="ctrl-panel-backdrop d-none" id="ctrlPanelBackdrop"></div>
+
+<% include ./modals/setting_modal.ejs %>

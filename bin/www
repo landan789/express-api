@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+const CHATSHIER = require('../config/chatshier');
+
+var app = require('../app');
+var http = require('http');
+var server = http.createServer(app);
+// var socketInit = require('../sockets/index');
+// socketInit(server);
+
+var port = process.env.PORT || CHATSHIER.API.PORT;
+
+server.listen(port);
+
+server.on('error', (error) => {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(' requires elevated privileges');
+            process.exit(1);
+        case 'EADDRINUSE':
+            console.error(' is already in use');
+            process.exit(1);
+        default:
+            throw error;
+    }
+});
+server.on('listening', (event) => {
+    var addr = server.address();
+    var bind = 'string' === typeof addr ? 'pipe ' + addr : 'port ' + addr.port;
+    console.log('[SUCCEEDED] the web of api-chatshier is listening on ' + bind + ' !!');
+});

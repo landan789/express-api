@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ./partials/meta_tags.ejs %>
+    <% include ./partials/favicon.ejs %>
+    <title><%= title %></title>
+
+    <% include ./partials/require_css.ejs %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/lib/css/bootstrap-datetimepicker-fixbs4.css">
+    <link rel="stylesheet" href="/lib/css/emojionearea.min.css" />
+    <link rel="stylesheet" href="/css/table.css" />
+    <link rel="stylesheet" href="/css/compose.css" />
+</head>
+
+<body>
+    <% include ./partials/loading.ejs %>
+
+    <div class="root d-flex w-100 h-100">
+        <% include ./partials/control_panel.ejs %>
+
+        <div class="ml-auto w-100 page-wrapper">
+            <% include ./partials/toolbar.ejs %>
+
+            <!-- [status filter] -->
+            <div class="container my-5">
+                <div class="chsr card">
+                    <div class="title">
+                        <h3 class="mb-4 pt-3 px-3">群發訊息</h3>
+                        <p class="mb-3 pt-0 px-3">首頁 / 訊息 / 群發</p>
+                        <p class="mb-3 pt-0 px-3">機器人向您的群體客戶發送的訊息</p>
+                    </div>
+
+                    <div class="px-3 my-3 dropdown app-dropdown" id="appsDropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="dropdown-text">請選擇聊天機器人</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="appsDropdown"></div>
+                    </div>
+
+                    <div class="px-3 my-3" id="searchWidget">
+                        <div class="search-add mb-2">
+                            <span class="icon"><i class="fa fa-search"></i></span>
+                            <input type="text" class="search-bar align-middle" placeholder="搜尋" aria-hidden="true">
+                            <button type="button" id="add-btn" class="btn btn-light btn-border insert" data-toggle="modal" data-target="#composeModal" aria-hidden="true" disabled>
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+
+                        <div class="chsr table">
+                            <table class="chsr table" id="composesReservationTable" category="RESERVATION">
+                                <caption>預約</caption>
+                                <thead>
+                                    <tr>
+                                        <th>內容</th>
+                                        <th>時間</th>
+                                        <th>發送條件</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                            <table class="chsr table" id="composesDraftTable" category="DRAFT">
+                                <caption>草稿</caption>
+                                <thead>
+                                    <tr>
+                                        <th>內容</th>
+                                        <th>時間</th>
+                                        <th>發送條件</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                            <table class="chsr table" id="composesHistoryTable" category="HISTORY">
+                                <caption>歷史</caption>
+                                <thead>
+                                    <tr>
+                                        <th>內容</th>
+                                        <th>時間</th>
+                                        <th>發送條件</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chsr modal fade compose-modal" id="composeModal" tabindex="-1" role="dialog" aria-labelledby="composeModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xs" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="composeModalTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                <form class="modal-body">
+                    <div class="form-group">
+                        <label class="col-form-label font-weight-bold">聊天機器人:</label>
+                        <div class="dropdown" id="appsSelector">
+                            <button class="btn btn-light btn-block btn-border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span class="dropdown-value">已選擇的機器人 (0)</span>
+                            </button>
+                            <div class="px-2 dropdown-menu dropdown-menu-right"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group card">
+                        <div class="card-header">
+                            <span>發送條件</span>
+                            <small class="mx-1 text-info d-none" id="availableCount"></small>
+                        </div>
+                        <div class="card-body">
+                            <div class="condition-container" id="conditionContainer"></div>
+                            <button type="button" class="btn btn-light condition-add-btn">
+                                <i class="fas fa-plus"></i>
+                                <span>新增發送條件</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-form-label font-weight-bold">設定傳送時間:</label>
+                        <div class="my-1 form-check">
+                            <input type="radio" class="form-check-input" name="when-send" id="sendNowCbx" checked="true" />
+                            <label for="sendNowCbx" class="form-check-label">立刻傳送</label>
+                        </div>
+                        <div class="my-1 form-check">
+                            <input type="radio" class="form-check-input" name="when-send" id="reservationCbx" />
+                            <label for="reservationCbx" class="form-check-label">預約時間:</label>
+                        </div>
+                        <div class="input-group date" id="sendDatetimePicker">
+                            <span class="input-group-addon input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-alt"></i>
+                                </span>
+                            </span>
+                            <input type="text" class="form-control" name="sendDatetime" required />
+                        </div>
+                    </div>
+
+                    <div id="rowOfComposeContent">
+                        <label class="col-form-label font-weight-bold mb-2">發送內容: </label>
+                        <button class="mx-1 btn btn-light btn-border insert option-message" id="addComposeContent">
+                            <i class="fas fa-plus"></i>
+                        </button>
+
+                        <span class="option-message">(一次最多 3 則)</span>
+                        <span class="text-danger font-weight-bold error-message d-none">超過訊息上限</span>
+                    </div>
+
+                    <div class="form-group" id="rowOfSaveAsDraft">
+                        <label class="form-check-label col-form-label font-weight-bold">是否儲存為草稿？</label>
+                        <div class="input-container form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="isDraft" />
+                                <span>是</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-info" id="saveAsDraftBtn">存為草稿</button>
+                    <button type="button" class="btn btn-primary" id="composeUpdateBtn">更新</button>
+                    <button type="button" class="btn btn-primary" id="composeInsertBtn">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chsr modal fade" id="dialog_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 id="textContent"></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">確定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <% include ./partials/modals/error_modal.ejs %>
+
+    <% include ./partials/require_js.ejs %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/lib/js/emojionearea.min.js"></script>
+    <script src="/js/partials/reply_message_selector.js"></script>
+    <script src="/js/compose.js"></script>
+</body>
+
+</html>

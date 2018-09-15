@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ./partials/meta_tags.ejs %>
+    <% include ./partials/favicon.ejs %>
+    <title><%= title %></title>
+    <% include ./partials/require_css.ejs %>
+    <link rel="stylesheet" href="/css/table.css" />
+    <link rel="stylesheet" href="/css/imagemap.css" />
+</head>
+
+<body>
+    <% include ./partials/loading.ejs %>
+    <div class="root d-flex w-100 h-100">
+        <% include ./partials/control_panel.ejs %>
+        <div class="ml-auto w-100 page-wrapper">
+            <% include ./partials/toolbar.ejs %>
+            <div class="container my-5">
+                <div class="chsr card">
+                    <div class="title">
+                        <h3 class="pt-3 pb-0 px-5">圖文訊息</h3>
+                        <p class="pt-0 pb-4 px-5">首頁 / 圖文影音內容 / 圖文訊息</p>
+                    </div>
+                    <div class="px-5 my-3" id="appSelector">
+                        <div class="dropdown app-dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="appsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span class="dropdown-text">請選擇聊天機器人</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="appsDropdown"></div>
+                        </div>
+                        <div class="search-add mb-2">
+                            <button type="button" id="add-btn" class="btn btn-light btn-border inner-add insert" data-toggle="modal" data-target="#imagemap-modal" aria-hidden="true" disabled="true">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="py-0 px-5 chsr table">
+                        <table class="chsr table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">標題</th>
+                                    <th scope="col">版型</th>
+                                    <th scope="col">連結</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="imagemap-list"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- new modal -->
+    <div class="chsr modal fade" id="imagemap-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xs" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quickAddTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <!-- app -->
+                        <div class="form-group">
+                            <label class="col-form-label"><strong>目標機器人:</strong></label>
+                            <div class="select-container">
+                                <select class="form-control" id="app-select"></select>
+                            </div>
+                        </div>
+                        <!-- title -->
+                        <div class="form-group">
+                            <label class="col-form-label"><strong>標題:</strong></label>
+                            <input class="form-control mb-2" type="text" id="title">
+                        </div>
+                        <!-- 圖片種類 -->
+                        <div class="row col-12 px-0 mx-0">
+                            <div class="form-group col-4">
+                                <label class="col-form-label imagemap-form-label">
+                                    <img src="/image/imagemap/type-01.png" width="130" class="pb-1"/>
+                                    <input class="imagemap-form" type="radio" name="imagemap-form" value="form1">
+                                    <strong>版型 1</strong>
+                                </label>
+                            </div>
+                            <div class="form-group col-4 px-0">
+                                <label class="col-form-label imagemap-form-label">
+                                    <img src="/image/imagemap/type-02.png" width="130" class="pb-1"/>
+                                    <input class="imagemap-form" type="radio" name="imagemap-form" value="form2">
+                                    <strong>版型 2</strong>
+                                </label>
+                            </div>                            
+                            <div class="form-group col-4">
+                                <label class="col-form-label imagemap-form-label">
+                                    <img src="/image/imagemap/type-03.png" width="130" class="pb-1"/>
+                                    <input class="imagemap-form" type="radio" name="imagemap-form" value="form3">
+                                    <strong>版型 3</strong>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row col-12 px-0 mx-0">
+                            <div class="form-group col-4">
+                                <label class="col-form-label imagemap-form-label">
+                                    <img src="/image/imagemap/type-04.png" width="130" class="pb-1"/>                                    
+                                    <input class="imagemap-form" type="radio" name="imagemap-form" value="form4">
+                                    <strong>版型 4</strong>
+                                </label>
+                            </div>
+                            <div class="form-group col-4 px-0">
+                                <label class="col-form-label imagemap-form-label">
+                                    <img src="/image/imagemap/type-05.png" width="130" class="pb-1"/>                                   
+                                    <input type="radio" class="imagemap-form" name="imagemap-form" value="form5">
+                                    <strong>版型 5</strong>
+                                </label>
+                            </div>
+                            <div class="form-group col-4">
+                                <label class="col-form-label imagemap-form-label">
+                                    <img src="/image/imagemap/type-06.png" width="130" class="pb-1"/>                                  
+                                    <input class="imagemap-form" type="radio" name="imagemap-form" value="form6">
+                                    <strong>版型 6</strong>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row col-12 px-0 mx-0">
+                            <div class="form-group col-4">
+                                <label class="col-form-label imagemap-form-label">
+                                    <img src="/image/imagemap/type-07.png" width="130" class="pb-1"/>
+                                    <input class="imagemap-form" type="radio" name="imagemap-form" value="form7">
+                                    <strong>版型 7</strong>
+                                </label>
+                            </div>
+                            <div class="form-group col-4 px-0">
+                                <label class="col-form-label imagemap-form-label">
+                                    <img src="/image/imagemap/type-08.png" width="130" class="pb-1"/>
+                                    <input class="imagemap-form" type="radio" name="imagemap-form" value="form8">
+                                    <strong>版型 8</strong>
+                                </label>
+                            </div>
+                            <div class="form-group col-4"></div>
+                        </div>
+                        <!-- 內容設定 -->
+                        <div class="col-sm-12 pl-0 pb-3">
+                            <label class="col-form-label"><strong>內容設定:</strong></label>
+                            <label class="col-form-label btn btn-light btn-border">
+                                <strong>上傳圖片</strong>
+                                <input type="file" class="image-ghost" id="photo" accept="image/png,image/jpg,image/jpeg"/>
+                            </label>
+                        </div>
+                        <span class="badge badge-pill badge-danger mb-2 imagemap-image-warning"></span>
+                        <!-- rich menu photo -->
+                        <div class="chsr carousel-inner">
+                            <div class="show-imagemap-form"></div>
+                        </div>
+                        <!-- 內容 -->
+                        <section class="boxes-inputs"></section>
+                        <section class="form-inputs">
+                            <div class="form-group col-sm-12" id="box1-input">
+                                <input id="text" type="text" class="form-control content-input" >
+                                <input id="url" type="url" class="form-control content-input"  placeholder="http://">
+                            </div>
+                            <div class="form-group col-sm-12" id="box2-input">
+                                <input id="text" type="text" class="form-control content-input" >
+                                <input id="url" type="url" class="form-control content-input"  placeholder="http://">
+                            </div>
+                            <div class="form-group col-sm-12" id="box3-input">
+                                <input id="text" type="text" class="form-control content-input" >
+                                <input id="url" type="url" class="form-control content-input"  placeholder="http://">
+                            </div>
+                            <div class="form-group col-sm-12" id="box4-input">
+                                <input id="text" type="text" class="form-control content-input" >
+                                <input id="url" type="url" class="form-control content-input"  placeholder="http://">
+                            </div>
+                            <div class="form-group col-sm-12" id="box5-input">
+                                <input id="text" type="text" class="form-control content-input" >
+                                <input id="url" type="url" class="form-control content-input"  placeholder="http://">
+                            </div>
+                            <div class="form-group col-sm-12" id="box6-input">
+                                <input id="text" type="text" class="form-control content-input" >
+                                <input id="url" type="url" class="form-control content-input"  placeholder="http://">
+                            </div>
+                        </section>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="update-btn">確認</button>
+                    <button type="button" class="btn btn-primary" id="insert-btn">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end new modal -->
+    <div id="dialog_modal" class="chsr modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 id="textContent"></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">確定</button>
+                    <button type="button" class="btn btn-secondary">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% include ./partials/require_js.ejs %>
+    <script>
+        if (575 < $(window).width()) {
+            $('.row.col-12 .form-group.col-4:nth-child(1)').addClass('pr-4 pl-0');
+            $('.row.col-12 .form-group.col-4:nth-child(3)').addClass('pr-0 pl-4');
+        } else {
+            $('.row.col-12 .form-group.col-4:nth-child(1)').addClass('pr-5 pl-0');
+            $('.row.col-12 .form-group.col-4:nth-child(3)').addClass('pr-0 pl-5');
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="/js/imagemap.js"></script>
+</body>
+</html>
